@@ -5,6 +5,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { TabsPage } from '../pages/tabs/tabs';
 
+import { WeatherApiProvider } from '../providers/weather-api/weather-api';
+import { LocalStorageService } from 'angular-2-local-storage';
+
+import * as _ from 'lodash';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -12,19 +17,27 @@ export class WeatherApp {
   rootPage: any = TabsPage;
 
   constructor(
-    platform: Platform, 
-    statusBar: StatusBar, 
-    splashScreen: SplashScreen
+    private platform: Platform, 
+    private statusBar: StatusBar, 
+    private splashScreen: SplashScreen,
+    private weatherProvider: WeatherApiProvider,
+    private storage: LocalStorageService,
   ) {
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      let cities = this.storage.get('cities');
+      if (!cities || _.isEmpty(cities)) {
+        this.weatherProvider.getCities().subscribe((resp: any) => {
+          this.storage.set('cities', resp);
+        });
+      }
     });
   }
 
   getTimeClass() {
+    // use custom currentTime to emulate the background image
+    // let currentTime = 18;
     let currentTime = (new Date()).getHours();
     if (currentTime > 6 && currentTime <= 16) return 'day';
     if (currentTime > 16 && currentTime <= 19) return 'afternoon';

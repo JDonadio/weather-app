@@ -1,17 +1,24 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Settings
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content>
-  <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-start></ion-icon>
-      @ionicframework
-    </ion-item>
-  </ion-list>
+<ion-content padding>
+  <ion-grid class="settings">
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-card *ngFor="let city of cities" (tap)="setWeatherForCity(city)">
+            <ion-item>
+              <strong>Name: </strong>{{city.name}}
+            </ion-item>
+            <ion-item>
+              <strong>ID: </strong>{{city.id}}
+            </ion-item>
+            <ion-item>
+              <strong>Country: </strong>{{city.country}}
+            </ion-item>
+            <ion-item>
+              <strong>Coords: </strong>Lat: {{city.coord.lat}} Lon: {{city.coord.lon}}
+            </ion-item>
+          </ion-card>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
