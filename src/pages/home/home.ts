@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { WeatherApiProvider } from '../../providers/weather-api/weather-api';
+import { LocalStorageService } from 'angular-2-local-storage';
 
 @Component({
   selector: 'page-home',
@@ -11,9 +12,10 @@ export class HomePage {
   public weather: any;
 
   constructor(
-    private weatherProvider: WeatherApiProvider
+    private weatherProvider: WeatherApiProvider,
+    private storage: LocalStorageService,
   ) {
-    this.weather = {};
+    this.weather = this.storage.get('weather') || {};
   }
 
   ionViewDidLoad() {
@@ -24,6 +26,8 @@ export class HomePage {
       this.weather.description = resp.weather[0].description;
       this.weather.icon_url = 'http://openweathermap.org/img/w/' + resp.weather[0].icon + '.png';
       console.log(resp);
+
+      this.storage.set('weather', this.weather);
     });
   }
 }

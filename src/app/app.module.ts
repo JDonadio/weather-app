@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { WeatherApp } from './app.component';
+import { LocalStorageModule } from 'angular-2-local-storage';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -41,6 +42,10 @@ const directives: any = [];
   imports: [
     BrowserModule,
     HttpModule,
+    LocalStorageModule.withConfig({
+      prefix: 'weather-app',
+      storageType: 'localStorage'
+    }),
     IonicModule.forRoot(WeatherApp)
   ],
   bootstrap: [IonicApp],
