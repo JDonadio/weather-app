@@ -14,8 +14,33 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+@mixin light {
+  .grid {
+    color: white;
+  }
+  .tab-button {
+    color: white;
+  }
+  .tab-button-icon {
+    &.icon {
+      color: white;
+    }
+  }
+}
+
 .content {
-  background: url('../assets/imgs/weather-day.png') no-repeat fixed center;
+  background-color: transparent;
+  &.day {
+    background: url('../assets/imgs/weather-day.png') no-repeat fixed center;
+  }
+  &.afternoon {
+    background: url('../assets/imgs/weather-afternoon.png') no-repeat fixed center;
+    @include light;
+  }
+  &.night {
+    background: url('../assets/imgs/weather-night.png') no-repeat fixed center;
+    @include light;
+  }
 }
 
 .tabs .tabbar {
