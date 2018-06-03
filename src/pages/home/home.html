@@ -1,11 +1,5 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content padding>
-  <ion-grid *ngIf="weather && weather.main">
+  <ion-grid *ngIf="weather && weather.main" text-center>
     <ion-row>
       <ion-col width-50 offset-25>
         <h2>{{weather.city}}</h2>
@@ -14,7 +8,8 @@
         <h1>{{weather.main.temp}}&deg;</h1>
       </ion-col>
     </ion-row>
-    <ion-row>
+    
+    <ion-row class="details">
       <ion-col width-100>
         <ion-list>
           <ion-item>
