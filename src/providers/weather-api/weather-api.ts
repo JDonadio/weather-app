@@ -18,10 +18,17 @@ export class WeatherApiProvider {
 
   getWeather(opts?: any) {
     opts = opts || {};
-    opts.id = opts.id || 3836873;           // detault San Miguel de Tucumán
-    opts.units = opts.units || 'metric';    // detault Celsius
+    opts.id = opts.id || 3836873    // default San Miguel de Tucumán
+    opts.units = 'metric';          // detault Celsius
 
-    let params = 'id=' + opts.id + '&APPID=' + apiKey + '&units=' + opts.units;;
+    let params: string = '';
+
+    if (opts.lat && opts.lon) 
+      params = 'lat=' + opts.lat + '&lon=' + opts.lon;
+    else 
+      params = 'id=' + opts.id;
+
+    params += '&APPID=' + apiKey + '&units=' + opts.units;
 
     return this.http.get(this.url + params)
       .map(res => res.json());

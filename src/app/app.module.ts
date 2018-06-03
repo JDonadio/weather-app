@@ -16,6 +16,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 // providers
 import { WeatherApiProvider} from '../providers/weather-api/weather-api';
+import { GeolocationProvider } from '../providers/geolocation/geolocation';
+import { Geolocation } from '@ionic-native/geolocation';
 
 import * as _ from 'lodash';
 
@@ -27,7 +29,9 @@ const pages: any = [
 ];
 
 const providers: any = [
-  WeatherApiProvider
+  WeatherApiProvider,
+  GeolocationProvider,
+  Geolocation
 ];
 const pipes: any = [];
 const directives: any = [];
@@ -59,7 +63,7 @@ const directives: any = [];
     StatusBar,
     SplashScreen,
     _.compact(_.flattenDeep([
-      WeatherApiProvider
+      providers
     ])),
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
