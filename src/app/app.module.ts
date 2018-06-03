@@ -1,5 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { WeatherApp } from './app.component';
 
@@ -12,6 +13,9 @@ import { SettingsPage } from '../pages/settings/settings';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
+// providers
+import { WeatherApiProvider} from '../providers/weather-api/weather-api';
+
 import * as _ from 'lodash';
 
 const pages: any = [
@@ -21,6 +25,9 @@ const pages: any = [
   TabsPage
 ];
 
+const providers: any = [
+  WeatherApiProvider
+];
 const pipes: any = [];
 const directives: any = [];
 
@@ -33,6 +40,7 @@ const directives: any = [];
   ])),
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(WeatherApp)
   ],
   bootstrap: [IonicApp],
@@ -45,7 +53,10 @@ const directives: any = [];
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    _.compact(_.flattenDeep([
+      WeatherApiProvider
+    ])),
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
 export class AppModule {}
